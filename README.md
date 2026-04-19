@@ -1,9 +1,10 @@
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>GearSoftware — Make your gadgets smarter</title>
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
   :root {
     --bg: #0a0a0c;
@@ -54,23 +55,22 @@
 
   .nav-logo {
     display: flex; align-items: center; gap: 0.6rem;
-    font-family: 'Syne', sans-serif;
+    font-family: 'Barlow Condensed', sans-serif;
     font-weight: 800;
     font-size: 1.1rem;
-    letter-spacing: 0.05em;
+    letter-spacing: 0;
     color: var(--amber);
     text-decoration: none;
   }
 
   .nav-logo svg { width: 28px; height: 28px; }
 
-  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links { display: flex; gap: 1.5rem; list-style: none; }
   .nav-links a {
     color: var(--muted);
     text-decoration: none;
-    font-size: 0.78rem;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
+    font-size: 0.82rem;
+    letter-spacing: 0.02em;
     transition: color 0.2s;
   }
   .nav-links a:hover { color: var(--amber); }
@@ -91,9 +91,9 @@
 
   /* ─── HERO ─── */
   .hero {
-    min-height: 100vh;
+    min-height: 80vh;
     display: flex; align-items: center;
-    padding: 8rem 3rem 4rem;
+    padding: 5rem 3rem 3rem;
     position: relative;
     overflow: hidden;
   }
@@ -141,7 +141,7 @@
     border: 1px solid var(--border);
     padding: 0.35rem 0.8rem;
     border-radius: 2px;
-    margin-bottom: 2rem;
+    margin-bottom: 1.2rem;
     animation: fadeUp 0.6s ease both;
   }
   .hero-tag::before {
@@ -156,12 +156,12 @@
   }
 
   h1 {
-    font-family: 'Syne', sans-serif;
-    font-size: clamp(3rem, 7vw, 5.5rem);
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: clamp(2rem, 5vw, 3.8rem);
     font-weight: 800;
-    line-height: 1.0;
+    line-height: 1.05;
     letter-spacing: -0.02em;
-    margin-bottom: 1.5rem;
+    margin-bottom: 1rem;
     animation: fadeUp 0.6s 0.1s ease both;
   }
 
@@ -172,11 +172,11 @@
   }
 
   .hero-sub {
-    font-size: 1rem;
+    font-size: 0.9rem;
     color: var(--muted);
-    line-height: 1.7;
+    line-height: 1.6;
     max-width: 480px;
-    margin-bottom: 2.5rem;
+    margin-bottom: 1.8rem;
     animation: fadeUp 0.6s 0.2s ease both;
   }
 
@@ -190,7 +190,7 @@
     color: #0a0a0c;
     padding: 0.85rem 2rem;
     border-radius: 3px;
-    font-family: 'Syne', sans-serif;
+    font-family: 'Barlow Condensed', sans-serif;
     font-weight: 700;
     font-size: 0.9rem;
     text-decoration: none;
@@ -237,7 +237,7 @@
   }
   .stat:last-child { border-right: none; }
   .stat-num {
-    font-family: 'Syne', sans-serif;
+    font-family: 'Barlow Condensed', sans-serif;
     font-size: 2rem;
     font-weight: 800;
     color: var(--amber);
@@ -252,31 +252,31 @@
   }
 
   /* ─── SECTION ─── */
-  section { padding: 6rem 3rem; }
+  section { padding: 4rem 3rem; }
 
   .section-tag {
     font-size: 0.7rem;
     letter-spacing: 0.18em;
     text-transform: uppercase;
     color: var(--amber);
-    margin-bottom: 0.8rem;
+    margin-bottom: 0.6rem;
   }
 
   h2 {
-    font-family: 'Syne', sans-serif;
-    font-size: clamp(1.8rem, 4vw, 2.8rem);
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: clamp(1.5rem, 3vw, 2.2rem);
     font-weight: 800;
     line-height: 1.1;
-    letter-spacing: -0.01em;
-    margin-bottom: 1rem;
+    letter-spacing: -0.03em;
+    margin-bottom: 0.8rem;
   }
 
   .section-desc {
     color: var(--muted);
     max-width: 500px;
-    line-height: 1.7;
-    font-size: 0.9rem;
-    margin-bottom: 3.5rem;
+    line-height: 1.6;
+    font-size: 0.85rem;
+    margin-bottom: 2.5rem;
   }
 
   /* ─── GALAXY PRODUCTS ─── */
@@ -321,9 +321,10 @@
   }
 
   .card-title {
-    font-family: 'Syne', sans-serif;
+    font-family: 'Barlow Condensed', sans-serif;
     font-size: 1.3rem;
     font-weight: 700;
+    letter-spacing: -0.02em;
     margin-bottom: 0.6rem;
     color: var(--text);
   }
@@ -373,7 +374,7 @@
   .app-emoji { font-size: 1.6rem; }
 
   .app-name {
-    font-family: 'Syne', sans-serif;
+    font-family: 'Barlow Condensed', sans-serif;
     font-size: 0.95rem;
     font-weight: 700;
     color: var(--text);
@@ -424,7 +425,7 @@
     background: var(--bg);
   }
   .footer-logo {
-    font-family: 'Syne', sans-serif;
+    font-family: 'Barlow Condensed', sans-serif;
     font-weight: 800;
     color: var(--amber);
     font-size: 1rem;
@@ -559,7 +560,7 @@
     text-align: center;
   }
   .screen-label {
-    font-family: 'Syne', sans-serif;
+    font-family: 'Barlow Condensed', sans-serif;
     font-size: 0.9rem;
     font-weight: 700;
     color: var(--amber);
@@ -599,7 +600,7 @@
 
   .faq-q {
     padding: 1.4rem 2rem;
-    font-family: 'Syne', sans-serif;
+    font-family: 'Barlow Condensed', sans-serif;
     font-weight: 700;
     font-size: 0.95rem;
     cursor: pointer;
@@ -660,8 +661,8 @@
   @media (max-width: 768px) {
     nav { padding: 1rem 1.5rem; }
     .nav-links { display: none; }
-    .hero { padding: 7rem 1.5rem 3rem; }
-    section { padding: 4rem 1.5rem; }
+    .hero { padding: 5rem 1.5rem 2.5rem; min-height: auto; }
+    section { padding: 3rem 1.5rem; }
     footer { padding: 2rem 1.5rem; }
     .stats { flex-direction: column; }
     .stat { border-right: none; border-bottom: 1px solid var(--border); }
