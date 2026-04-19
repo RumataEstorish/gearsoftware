@@ -679,11 +679,11 @@
     }
   </style>
 </head>
-<body>
+<body id="top">
 
 <!-- NAV -->
 <nav>
-  <a href="#" class="nav-logo">
+  <a href="#top" class="nav-logo">
     <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
       <path d="M16 2l2.5 4.3 4.9-0.7 1.6 4.7 4.5 2-1.6 4.7 2.5 4.3-4.5 2-0.7 4.9-4.9-0.7L16 30l-2.5-4.3-4.9 0.7-1.6-4.7-4.5-2 1.6-4.7L1.6 11.3l4.5-2 0.7-4.9L11.7 5 16 2z" fill="#f5a623" opacity="0.9"/>
       <circle cx="16" cy="16" r="5" fill="#0a0a0c"/>
@@ -1110,11 +1110,11 @@
   const browserLang = navigator.language.startsWith('ru') ? 'ru' : 'en';
   setLang(browserLang);
 
-  // Prevent browser from restoring scroll position on refresh
+  // Prevent browser scroll restoration on refresh
   if (history.scrollRestoration) {
     history.scrollRestoration = 'manual';
   }
-  window.scrollTo(0, 0);
+  window.addEventListener('load', () => window.scrollTo(0, 0));
 </script>
 
 </body>
