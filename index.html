@@ -1,681 +1,681 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>GearSoftware — Make your gadgets smarter</title>
-<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
-<style>
-  :root {
-    --bg: #0a0a0c;
-    --bg2: #111116;
-    --amber: #f5a623;
-    --amber-dim: #b87a18;
-    --amber-glow: rgba(245,166,35,0.15);
-    --blue: #4fc3f7;
-    --text: #e8e4dc;
-    --muted: #7a7570;
-    --card: #16161c;
-    --border: rgba(245,166,35,0.18);
-  }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GearSoftware — Make your gadgets smarter</title>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0a0a0c;
+      --bg2: #111116;
+      --amber: #f5a623;
+      --amber-dim: #b87a18;
+      --amber-glow: rgba(245,166,35,0.15);
+      --blue: #4fc3f7;
+      --text: #e8e4dc;
+      --muted: #7a7570;
+      --card: #16161c;
+      --border: rgba(245,166,35,0.18);
+    }
 
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-  html { scroll-behavior: smooth; }
+    html { scroll-behavior: smooth; }
 
-  body {
-    background: var(--bg);
-    color: var(--text);
-    font-family: 'DM Mono', monospace;
-    overflow-x: hidden;
-    cursor: default;
-  }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'DM Mono', monospace;
+      overflow-x: hidden;
+      cursor: default;
+    }
 
-  /* ─── NOISE OVERLAY ─── */
-  body::before {
-    content: '';
-    position: fixed;
-    inset: 0;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
-    opacity: 0.03;
-    pointer-events: none;
-    z-index: 9999;
-  }
+    /* ─── NOISE OVERLAY ─── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+      opacity: 0.03;
+      pointer-events: none;
+      z-index: 9999;
+    }
 
-  /* ─── NAV ─── */
-  nav {
-    position: fixed; top: 0; left: 0; right: 0;
-    z-index: 100;
-    display: flex; align-items: center; justify-content: space-between;
-    padding: 1.2rem 3rem;
-    background: rgba(10,10,12,0.85);
-    backdrop-filter: blur(12px);
-    border-bottom: 1px solid var(--border);
-  }
+    /* ─── NAV ─── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.2rem 3rem;
+      background: rgba(10,10,12,0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
 
-  .nav-logo {
-    display: flex; align-items: center; gap: 0.6rem;
-    font-family: 'Barlow Condensed', sans-serif;
-    font-weight: 800;
-    font-size: 1.1rem;
-    letter-spacing: 0;
-    color: var(--amber);
-    text-decoration: none;
-  }
+    .nav-logo {
+      display: flex; align-items: center; gap: 0.6rem;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 800;
+      font-size: 1.1rem;
+      letter-spacing: 0;
+      color: var(--amber);
+      text-decoration: none;
+    }
 
-  .nav-logo svg { width: 28px; height: 28px; }
+    .nav-logo svg { width: 28px; height: 28px; }
 
-  .nav-links { display: flex; gap: 1.5rem; list-style: none; }
-  .nav-links a {
-    color: var(--muted);
-    text-decoration: none;
-    font-size: 0.82rem;
-    letter-spacing: 0.02em;
-    transition: color 0.2s;
-  }
-  .nav-links a:hover { color: var(--amber); }
+    .nav-links { display: flex; gap: 1.5rem; list-style: none; }
+    .nav-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.82rem;
+      letter-spacing: 0.02em;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--amber); }
 
-  .nav-cta {
-    background: var(--amber);
-    color: #0a0a0c;
-    padding: 0.5rem 1.2rem;
-    border-radius: 3px;
-    font-size: 0.78rem;
-    font-weight: 500;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    text-decoration: none;
-    transition: opacity 0.2s;
-  }
-  .nav-cta:hover { opacity: 0.85; }
+    .nav-cta {
+      background: var(--amber);
+      color: #0a0a0c;
+      padding: 0.5rem 1.2rem;
+      border-radius: 3px;
+      font-size: 0.78rem;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      text-decoration: none;
+      transition: opacity 0.2s;
+    }
+    .nav-cta:hover { opacity: 0.85; }
 
-  /* ─── HERO ─── */
-  .hero {
-    min-height: 80vh;
-    display: flex; align-items: center;
-    padding: 5rem 3rem 3rem;
-    position: relative;
-    overflow: hidden;
-  }
+    /* ─── HERO ─── */
+    .hero {
+      min-height: 80vh;
+      display: flex; align-items: center;
+      padding: 5rem 3rem 3rem;
+      position: relative;
+      overflow: hidden;
+    }
 
-  /* Gear background art */
-  .gear-bg {
-    position: absolute;
-    right: -80px; top: 50%;
-    transform: translateY(-50%);
-    width: 620px; height: 620px;
-    opacity: 0.07;
-    animation: gearSpin 40s linear infinite;
-  }
-  .gear-bg2 {
-    position: absolute;
-    right: 200px; top: 30%;
-    width: 320px; height: 320px;
-    opacity: 0.05;
-    animation: gearSpin 25s linear infinite reverse;
-  }
+    /* Gear background art */
+    .gear-bg {
+      position: absolute;
+      right: -80px; top: 50%;
+      transform: translateY(-50%);
+      width: 620px; height: 620px;
+      opacity: 0.07;
+      animation: gearSpin 40s linear infinite;
+    }
+    .gear-bg2 {
+      position: absolute;
+      right: 200px; top: 30%;
+      width: 320px; height: 320px;
+      opacity: 0.05;
+      animation: gearSpin 25s linear infinite reverse;
+    }
 
-  @keyframes gearSpin { to { transform: translateY(-50%) rotate(360deg); } }
-  .gear-bg2 { transform-origin: center center; }
-  @keyframes gearSpin2 { from { transform: rotate(0deg); } to { transform: rotate(-360deg); } }
+    @keyframes gearSpin { to { transform: translateY(-50%) rotate(360deg); } }
+    .gear-bg2 { transform-origin: center center; }
+    @keyframes gearSpin2 { from { transform: rotate(0deg); } to { transform: rotate(-360deg); } }
 
-  /* Glow blob */
-  .hero::after {
-    content: '';
-    position: absolute;
-    left: -200px; top: 50%;
-    transform: translateY(-50%);
-    width: 600px; height: 600px;
-    background: radial-gradient(circle, rgba(245,166,35,0.08) 0%, transparent 70%);
-    pointer-events: none;
-  }
+    /* Glow blob */
+    .hero::after {
+      content: '';
+      position: absolute;
+      left: -200px; top: 50%;
+      transform: translateY(-50%);
+      width: 600px; height: 600px;
+      background: radial-gradient(circle, rgba(245,166,35,0.08) 0%, transparent 70%);
+      pointer-events: none;
+    }
 
-  .hero-inner { position: relative; z-index: 1; max-width: 680px; }
+    .hero-inner { position: relative; z-index: 1; max-width: 680px; }
 
-  .hero-tag {
-    display: inline-flex; align-items: center; gap: 0.5rem;
-    font-size: 0.72rem;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    color: var(--amber);
-    border: 1px solid var(--border);
-    padding: 0.35rem 0.8rem;
-    border-radius: 2px;
-    margin-bottom: 1.2rem;
-    animation: fadeUp 0.6s ease both;
-  }
-  .hero-tag::before {
-    content: '';
-    width: 6px; height: 6px;
-    background: var(--amber);
-    border-radius: 50%;
-    animation: pulse 2s infinite;
-  }
-  @keyframes pulse {
-    0%,100% { opacity: 1; } 50% { opacity: 0.3; }
-  }
+    .hero-tag {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      font-size: 0.72rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--amber);
+      border: 1px solid var(--border);
+      padding: 0.35rem 0.8rem;
+      border-radius: 2px;
+      margin-bottom: 1.2rem;
+      animation: fadeUp 0.6s ease both;
+    }
+    .hero-tag::before {
+      content: '';
+      width: 6px; height: 6px;
+      background: var(--amber);
+      border-radius: 50%;
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0%,100% { opacity: 1; } 50% { opacity: 0.3; }
+    }
 
-  h1 {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-size: clamp(2rem, 5vw, 3.8rem);
-    font-weight: 800;
-    line-height: 1.05;
-    letter-spacing: -0.02em;
-    margin-bottom: 1rem;
-    animation: fadeUp 0.6s 0.1s ease both;
-  }
+    h1 {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: clamp(2rem, 5vw, 3.8rem);
+      font-weight: 800;
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+      margin-bottom: 1rem;
+      animation: fadeUp 0.6s 0.1s ease both;
+    }
 
-  h1 em {
-    font-style: normal;
-    color: var(--amber);
-    display: block;
-  }
+    h1 em {
+      font-style: normal;
+      color: var(--amber);
+      display: block;
+    }
 
-  .hero-sub {
-    font-size: 0.9rem;
-    color: var(--muted);
-    line-height: 1.6;
-    max-width: 480px;
-    margin-bottom: 1.8rem;
-    animation: fadeUp 0.6s 0.2s ease both;
-  }
+    .hero-sub {
+      font-size: 0.9rem;
+      color: var(--muted);
+      line-height: 1.6;
+      max-width: 480px;
+      margin-bottom: 1.8rem;
+      animation: fadeUp 0.6s 0.2s ease both;
+    }
 
-  .hero-actions {
-    display: flex; gap: 1rem; flex-wrap: wrap;
-    animation: fadeUp 0.6s 0.3s ease both;
-  }
+    .hero-actions {
+      display: flex; gap: 1rem; flex-wrap: wrap;
+      animation: fadeUp 0.6s 0.3s ease both;
+    }
 
-  .btn-primary {
-    background: var(--amber);
-    color: #0a0a0c;
-    padding: 0.85rem 2rem;
-    border-radius: 3px;
-    font-family: 'Barlow Condensed', sans-serif;
-    font-weight: 700;
-    font-size: 0.9rem;
-    text-decoration: none;
-    letter-spacing: 0.04em;
-    transition: transform 0.15s, box-shadow 0.15s;
-    box-shadow: 0 0 0 0 rgba(245,166,35,0.4);
-  }
-  .btn-primary:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 30px rgba(245,166,35,0.35);
-  }
+    .btn-primary {
+      background: var(--amber);
+      color: #0a0a0c;
+      padding: 0.85rem 2rem;
+      border-radius: 3px;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 700;
+      font-size: 0.9rem;
+      text-decoration: none;
+      letter-spacing: 0.04em;
+      transition: transform 0.15s, box-shadow 0.15s;
+      box-shadow: 0 0 0 0 rgba(245,166,35,0.4);
+    }
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 30px rgba(245,166,35,0.35);
+    }
 
-  .btn-ghost {
-    border: 1px solid var(--border);
-    color: var(--text);
-    padding: 0.85rem 2rem;
-    border-radius: 3px;
-    font-family: 'DM Mono', monospace;
-    font-size: 0.85rem;
-    text-decoration: none;
-    letter-spacing: 0.06em;
-    transition: border-color 0.2s, color 0.2s;
-  }
-  .btn-ghost:hover { border-color: var(--amber); color: var(--amber); }
+    .btn-ghost {
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 0.85rem 2rem;
+      border-radius: 3px;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.85rem;
+      text-decoration: none;
+      letter-spacing: 0.06em;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .btn-ghost:hover { border-color: var(--amber); color: var(--amber); }
 
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(24px); }
-    to   { opacity: 1; transform: translateY(0); }
-  }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
 
-  /* ─── STATS BAR ─── */
-  .stats {
-    display: flex; justify-content: center; gap: 0; flex-wrap: wrap;
-    border-top: 1px solid var(--border);
-    border-bottom: 1px solid var(--border);
-    background: var(--bg2);
-  }
+    /* ─── STATS BAR ─── */
+    .stats {
+      display: flex; justify-content: center; gap: 0; flex-wrap: wrap;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      background: var(--bg2);
+    }
 
-  .stat {
-    flex: 1; min-width: 160px;
-    padding: 1.8rem 2rem;
-    text-align: center;
-    border-right: 1px solid var(--border);
-  }
-  .stat:last-child { border-right: none; }
-  .stat-num {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-size: 2rem;
-    font-weight: 800;
-    color: var(--amber);
-    display: block;
-  }
-  .stat-label {
-    font-size: 0.7rem;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--muted);
-    margin-top: 0.3rem;
-  }
+    .stat {
+      flex: 1; min-width: 160px;
+      padding: 1.8rem 2rem;
+      text-align: center;
+      border-right: 1px solid var(--border);
+    }
+    .stat:last-child { border-right: none; }
+    .stat-num {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 2rem;
+      font-weight: 800;
+      color: var(--amber);
+      display: block;
+    }
+    .stat-label {
+      font-size: 0.7rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-top: 0.3rem;
+    }
 
-  /* ─── SECTION ─── */
-  section { padding: 4rem 3rem; }
+    /* ─── SECTION ─── */
+    section { padding: 4rem 3rem; }
 
-  .section-tag {
-    font-size: 0.7rem;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: var(--amber);
-    margin-bottom: 0.6rem;
-  }
+    .section-tag {
+      font-size: 0.7rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--amber);
+      margin-bottom: 0.6rem;
+    }
 
-  h2 {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-size: clamp(1.5rem, 3vw, 2.2rem);
-    font-weight: 800;
-    line-height: 1.1;
-    letter-spacing: -0.03em;
-    margin-bottom: 0.8rem;
-  }
+    h2 {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: clamp(1.5rem, 3vw, 2.2rem);
+      font-weight: 800;
+      line-height: 1.1;
+      letter-spacing: -0.03em;
+      margin-bottom: 0.8rem;
+    }
 
-  .section-desc {
-    color: var(--muted);
-    max-width: 500px;
-    line-height: 1.6;
-    font-size: 0.85rem;
-    margin-bottom: 2.5rem;
-  }
+    .section-desc {
+      color: var(--muted);
+      max-width: 500px;
+      line-height: 1.6;
+      font-size: 0.85rem;
+      margin-bottom: 2.5rem;
+    }
 
-  /* ─── GALAXY PRODUCTS ─── */
-  .galaxy-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-    gap: 1.5px;
-    background: var(--border);
-    border: 1px solid var(--border);
-    border-radius: 6px;
-    overflow: hidden;
-  }
+    /* ─── GALAXY PRODUCTS ─── */
+    .galaxy-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 1.5px;
+      background: var(--border);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      overflow: hidden;
+    }
 
-  .galaxy-card {
-    background: var(--card);
-    padding: 2.5rem;
-    position: relative;
-    transition: background 0.2s;
-    overflow: hidden;
-  }
-  .galaxy-card::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0; right: 0;
-    height: 2px;
-    background: var(--amber);
-    transform: scaleX(0);
-    transform-origin: left;
-    transition: transform 0.3s;
-  }
-  .galaxy-card:hover { background: #1a1a22; }
-  .galaxy-card:hover::before { transform: scaleX(1); }
+    .galaxy-card {
+      background: var(--card);
+      padding: 2.5rem;
+      position: relative;
+      transition: background 0.2s;
+      overflow: hidden;
+    }
+    .galaxy-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: var(--amber);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.3s;
+    }
+    .galaxy-card:hover { background: #1a1a22; }
+    .galaxy-card:hover::before { transform: scaleX(1); }
 
-  .card-icon {
-    width: 48px; height: 48px;
-    background: var(--amber-glow);
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    display: flex; align-items: center; justify-content: center;
-    margin-bottom: 1.5rem;
-    overflow: hidden;
-  }
-  .card-icon img { width: 100%; height: 100%; object-fit: cover; border-radius: 8px; }
+    .card-icon {
+      width: 48px; height: 48px;
+      background: var(--amber-glow);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 1.5rem;
+      overflow: hidden;
+    }
+    .card-icon img { width: 100%; height: 100%; object-fit: cover; border-radius: 8px; }
 
-  .app-emoji { font-size: 1.6rem; width: 40px; height: 40px; display: flex; align-items: center; }
-  .app-emoji img { width: 40px; height: 40px; object-fit: cover; border-radius: 6px; }
-    font-family: 'Barlow Condensed', sans-serif;
-    font-size: 1.3rem;
-    font-weight: 700;
-    letter-spacing: -0.02em;
-    margin-bottom: 0.6rem;
-    color: var(--text);
-  }
+    .app-emoji { font-size: 1.6rem; width: 40px; height: 40px; display: flex; align-items: center; }
+    .app-emoji img { width: 40px; height: 40px; object-fit: cover; border-radius: 6px; }
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 1.3rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.6rem;
+      color: var(--text);
+    }
 
-  .card-desc {
-    font-size: 0.82rem;
-    color: var(--muted);
-    line-height: 1.6;
-    margin-bottom: 1.5rem;
-  }
+    .card-desc {
+      font-size: 0.82rem;
+      color: var(--muted);
+      line-height: 1.6;
+      margin-bottom: 1.5rem;
+    }
 
-  .card-link {
-    display: inline-flex; align-items: center; gap: 0.4rem;
-    font-size: 0.75rem;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--amber);
-    text-decoration: none;
-    transition: gap 0.2s;
-  }
-  .card-link:hover { gap: 0.7rem; }
+    .card-link {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      font-size: 0.75rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--amber);
+      text-decoration: none;
+      transition: gap 0.2s;
+    }
+    .card-link:hover { gap: 0.7rem; }
 
-  /* ─── TIZEN APPS ─── */
-  .tizen-section { background: var(--bg2); }
+    /* ─── TIZEN APPS ─── */
+    .tizen-section { background: var(--bg2); }
 
-  .apps-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-    gap: 1px;
-    background: var(--border);
-    border: 1px solid var(--border);
-    border-radius: 6px;
-    overflow: hidden;
-  }
+    .apps-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      overflow: hidden;
+    }
 
-  .app-tile {
-    background: var(--card);
-    padding: 1.8rem 1.5rem;
-    display: flex; flex-direction: column; gap: 0.5rem;
-    transition: background 0.2s;
-    text-decoration: none;
-    color: inherit;
-    position: relative;
-  }
-  .app-tile:hover { background: #1a1a22; }
+    .app-tile {
+      background: var(--card);
+      padding: 1.8rem 1.5rem;
+      display: flex; flex-direction: column; gap: 0.5rem;
+      transition: background 0.2s;
+      text-decoration: none;
+      color: inherit;
+      position: relative;
+    }
+    .app-tile:hover { background: #1a1a22; }
 
-  .card-title {
-    font-size: 0.95rem;
-    font-weight: 700;
-    color: var(--text);
-  }
+    .card-title {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--text);
+    }
 
-  .app-name {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-size: 0.95rem;
-    font-weight: 700;
-    color: var(--text);
-  }
+    .app-name {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--text);
+    }
 
-  .app-type {
-    font-size: 0.68rem;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--muted);
-  }
+    .app-type {
+      font-size: 0.68rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
 
-  .app-badge {
-    position: absolute;
-    top: 1rem; right: 1rem;
-    font-size: 0.6rem;
-    letter-spacing: 0.06em;
-    background: rgba(79,195,247,0.12);
-    color: var(--blue);
-    border: 1px solid rgba(79,195,247,0.2);
-    padding: 0.2rem 0.5rem;
-    border-radius: 2px;
-  }
+    .app-badge {
+      position: absolute;
+      top: 1rem; right: 1rem;
+      font-size: 0.6rem;
+      letter-spacing: 0.06em;
+      background: rgba(79,195,247,0.12);
+      color: var(--blue);
+      border: 1px solid rgba(79,195,247,0.2);
+      padding: 0.2rem 0.5rem;
+      border-radius: 2px;
+    }
 
-  /* ─── FUTURE ─── */
-  .future-section {
-    background: linear-gradient(135deg, #0a0a0c 0%, #12100a 100%);
-    position: relative;
-    overflow: hidden;
-    text-align: center;
-  }
-  .future-section::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: radial-gradient(ellipse at 50% 0%, rgba(245,166,35,0.1) 0%, transparent 60%);
-  }
-  .future-inner { position: relative; z-index: 1; max-width: 600px; margin: 0 auto; }
+    /* ─── FUTURE ─── */
+    .future-section {
+      background: linear-gradient(135deg, #0a0a0c 0%, #12100a 100%);
+      position: relative;
+      overflow: hidden;
+      text-align: center;
+    }
+    .future-section::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at 50% 0%, rgba(245,166,35,0.1) 0%, transparent 60%);
+    }
+    .future-inner { position: relative; z-index: 1; max-width: 600px; margin: 0 auto; }
 
-  .future-section .section-desc { margin-left: auto; margin-right: auto; }
+    .future-section .section-desc { margin-left: auto; margin-right: auto; }
 
-  /* ─── FOOTER ─── */
-  footer {
-    border-top: 1px solid var(--border);
-    padding: 2.5rem 3rem;
-    display: flex; align-items: center; justify-content: space-between;
-    flex-wrap: wrap; gap: 1rem;
-    background: var(--bg);
-  }
-  .footer-logo {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-weight: 800;
-    color: var(--amber);
-    font-size: 1rem;
-    letter-spacing: 0.05em;
-  }
-  .footer-copy {
-    font-size: 0.72rem;
-    color: var(--muted);
-    letter-spacing: 0.06em;
-  }
-  .footer-tg {
-    display: flex; align-items: center; gap: 0.5rem;
-    font-size: 0.78rem;
-    color: var(--blue);
-    text-decoration: none;
-    letter-spacing: 0.06em;
-  }
-  .footer-tg:hover { opacity: 0.8; }
+    /* ─── FOOTER ─── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 2.5rem 3rem;
+      display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: 1rem;
+      background: var(--bg);
+    }
+    .footer-logo {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 800;
+      color: var(--amber);
+      font-size: 1rem;
+      letter-spacing: 0.05em;
+    }
+    .footer-copy {
+      font-size: 0.72rem;
+      color: var(--muted);
+      letter-spacing: 0.06em;
+    }
+    .footer-tg {
+      display: flex; align-items: center; gap: 0.5rem;
+      font-size: 0.78rem;
+      color: var(--blue);
+      text-decoration: none;
+      letter-spacing: 0.06em;
+    }
+    .footer-tg:hover { opacity: 0.8; }
 
-  /* ─── FEATURE GRID ─── */
-  .feature-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-    gap: 0.6rem;
-    margin-top: 1.2rem;
-  }
-  .feature-item {
-    font-size: 0.78rem;
-    color: var(--muted);
-    background: rgba(245,166,35,0.04);
-    border: 1px solid var(--border);
-    border-radius: 3px;
-    padding: 0.5rem 0.8rem;
-    letter-spacing: 0.02em;
-  }
+    /* ─── FEATURE GRID ─── */
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 0.6rem;
+      margin-top: 1.2rem;
+    }
+    .feature-item {
+      font-size: 0.78rem;
+      color: var(--muted);
+      background: rgba(245,166,35,0.04);
+      border: 1px solid var(--border);
+      border-radius: 3px;
+      padding: 0.5rem 0.8rem;
+      letter-spacing: 0.02em;
+    }
 
-  /* ─── ARCHIVE NOTICE ─── */
-  .archive-notice {
-    display: flex; align-items: flex-start; gap: 1rem;
-    background: rgba(255,180,0,0.06);
-    border: 1px solid rgba(255,180,0,0.2);
-    border-left: 3px solid var(--amber);
-    border-radius: 4px;
-    padding: 1.2rem 1.5rem;
-    margin-bottom: 2.5rem;
-    font-size: 0.82rem;
-    color: var(--muted);
-    line-height: 1.6;
-  }
-  .archive-notice strong { color: var(--amber); }
-  .archive-icon { font-size: 1.1rem; flex-shrink: 0; margin-top: 0.1rem; }
+    /* ─── ARCHIVE NOTICE ─── */
+    .archive-notice {
+      display: flex; align-items: flex-start; gap: 1rem;
+      background: rgba(255,180,0,0.06);
+      border: 1px solid rgba(255,180,0,0.2);
+      border-left: 3px solid var(--amber);
+      border-radius: 4px;
+      padding: 1.2rem 1.5rem;
+      margin-bottom: 2.5rem;
+      font-size: 0.82rem;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+    .archive-notice strong { color: var(--amber); }
+    .archive-icon { font-size: 1.1rem; flex-shrink: 0; margin-top: 0.1rem; }
 
-  /* ─── GEARHUB CALLOUT ─── */
-  .gearhub-callout {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 2rem;
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: 6px;
-    padding: 2rem;
-    margin-bottom: 2rem;
-  }
-  @media (max-width: 640px) {
-    .gearhub-callout { grid-template-columns: 1fr; }
-  }
-  .gearhub-deps { display: flex; flex-direction: column; justify-content: center; }
-  .dep-label {
-    font-size: 0.68rem;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--muted);
-    margin-bottom: 0.6rem;
-  }
-  .dep-list { display: flex; flex-wrap: wrap; gap: 0.5rem; }
-  .dep-tag {
-    font-size: 0.75rem;
-    background: rgba(245,166,35,0.1);
-    border: 1px solid rgba(245,166,35,0.2);
-    color: var(--amber);
-    padding: 0.25rem 0.6rem;
-    border-radius: 3px;
-  }
-  .dep-tag.dep-standalone {
-    background: rgba(100,100,120,0.15);
-    border-color: rgba(100,100,120,0.3);
-    color: var(--muted);
-  }
+    /* ─── GEARHUB CALLOUT ─── */
+    .gearhub-callout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 2rem;
+      margin-bottom: 2rem;
+    }
+    @media (max-width: 640px) {
+      .gearhub-callout { grid-template-columns: 1fr; }
+    }
+    .gearhub-deps { display: flex; flex-direction: column; justify-content: center; }
+    .dep-label {
+      font-size: 0.68rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 0.6rem;
+    }
+    .dep-list { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+    .dep-tag {
+      font-size: 0.75rem;
+      background: rgba(245,166,35,0.1);
+      border: 1px solid rgba(245,166,35,0.2);
+      color: var(--amber);
+      padding: 0.25rem 0.6rem;
+      border-radius: 3px;
+    }
+    .dep-tag.dep-standalone {
+      background: rgba(100,100,120,0.15);
+      border-color: rgba(100,100,120,0.3);
+      color: var(--muted);
+    }
 
-  /* ─── SCREENSHOTS ─── */
-  .screens-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-    gap: 2rem;
-  }
+    /* ─── SCREENSHOTS ─── */
+    .screens-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 2rem;
+    }
 
-  .screen-wrap { display: flex; flex-direction: column; gap: 0.8rem; }
+    .screen-wrap { display: flex; flex-direction: column; gap: 0.8rem; }
 
-  .screen-frame-phone {
-    aspect-ratio: 9/16;
-    border-radius: 12px;
-    border: 2px solid var(--border);
-    background: var(--card);
-    display: flex; align-items: center; justify-content: center;
-    position: relative;
-    overflow: hidden;
-    transition: border-color 0.2s, box-shadow 0.2s;
-    max-width: 160px;
-    margin: 0 auto;
-  }
-  .screen-frame-phone:hover {
-    border-color: var(--amber);
-    box-shadow: 0 8px 30px rgba(245,166,35,0.15);
-  }
-    border: 2px solid var(--border);
-    background: var(--card);
-    display: flex; align-items: center; justify-content: center;
-    position: relative;
-    overflow: hidden;
-    transition: border-color 0.2s, box-shadow 0.2s;
-    max-width: 220px;
-    margin: 0 auto;
-  }
-  .screen-frame:hover {
-    border-color: var(--amber);
-    box-shadow: 0 0 30px rgba(245,166,35,0.15);
-  }
-  /* Replace .screen-inner with an <img> tag when you have real screenshots */
-  .screen-inner {
-    display: flex; flex-direction: column; align-items: center; gap: 0.5rem;
-    padding: 1rem;
-    text-align: center;
-  }
-  .screen-label {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-size: 0.9rem;
-    font-weight: 700;
-    color: var(--amber);
-  }
-  .screen-hint {
-    font-size: 0.65rem;
-    color: var(--muted);
-    letter-spacing: 0.05em;
-  }
-  .screen-cap {
-    text-align: center;
-    font-size: 0.75rem;
-    color: var(--muted);
-    letter-spacing: 0.05em;
-    max-width: 220px;
-    margin: 0 auto;
-  }
+    .screen-frame-phone {
+      aspect-ratio: 9/16;
+      border-radius: 12px;
+      border: 2px solid var(--border);
+      background: var(--card);
+      display: flex; align-items: center; justify-content: center;
+      position: relative;
+      overflow: hidden;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      max-width: 160px;
+      margin: 0 auto;
+    }
+    .screen-frame-phone:hover {
+      border-color: var(--amber);
+      box-shadow: 0 8px 30px rgba(245,166,35,0.15);
+    }
+      border: 2px solid var(--border);
+      background: var(--card);
+      display: flex; align-items: center; justify-content: center;
+      position: relative;
+      overflow: hidden;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      max-width: 220px;
+      margin: 0 auto;
+    }
+    .screen-frame:hover {
+      border-color: var(--amber);
+      box-shadow: 0 0 30px rgba(245,166,35,0.15);
+    }
+    /* Replace .screen-inner with an <img> tag when you have real screenshots */
+    .screen-inner {
+      display: flex; flex-direction: column; align-items: center; gap: 0.5rem;
+      padding: 1rem;
+      text-align: center;
+    }
+    .screen-label {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: var(--amber);
+    }
+    .screen-hint {
+      font-size: 0.65rem;
+      color: var(--muted);
+      letter-spacing: 0.05em;
+    }
+    .screen-cap {
+      text-align: center;
+      font-size: 0.75rem;
+      color: var(--muted);
+      letter-spacing: 0.05em;
+      max-width: 220px;
+      margin: 0 auto;
+    }
 
-  /* ─── FAQ ─── */
-  .faq-section { background: var(--bg2); }
+    /* ─── FAQ ─── */
+    .faq-section { background: var(--bg2); }
 
-  .faq-list {
-    max-width: 680px;
-    display: flex; flex-direction: column;
-    border: 1px solid var(--border);
-    border-radius: 6px;
-    overflow: hidden;
-  }
+    .faq-list {
+      max-width: 680px;
+      display: flex; flex-direction: column;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      overflow: hidden;
+    }
 
-  .faq-item {
-    border-bottom: 1px solid var(--border);
-    background: var(--card);
-    transition: background 0.2s;
-  }
-  .faq-item:last-child { border-bottom: none; }
-  .faq-item[open] { background: #1a1a22; }
+    .faq-item {
+      border-bottom: 1px solid var(--border);
+      background: var(--card);
+      transition: background 0.2s;
+    }
+    .faq-item:last-child { border-bottom: none; }
+    .faq-item[open] { background: #1a1a22; }
 
-  .faq-q {
-    padding: 1.4rem 2rem;
-    font-family: 'Barlow Condensed', sans-serif;
-    font-weight: 700;
-    font-size: 0.95rem;
-    cursor: pointer;
-    list-style: none;
-    display: flex; align-items: center; justify-content: space-between;
-    color: var(--text);
-    transition: color 0.2s;
-  }
-  .faq-q::-webkit-details-marker { display: none; }
-  .faq-q::after {
-    content: '+';
-    font-size: 1.2rem;
-    color: var(--amber);
-    font-weight: 400;
-    transition: transform 0.2s;
-  }
-  .faq-item[open] .faq-q::after {
-    content: '−';
-  }
-  .faq-q:hover { color: var(--amber); }
+    .faq-q {
+      padding: 1.4rem 2rem;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 700;
+      font-size: 0.95rem;
+      cursor: pointer;
+      list-style: none;
+      display: flex; align-items: center; justify-content: space-between;
+      color: var(--text);
+      transition: color 0.2s;
+    }
+    .faq-q::-webkit-details-marker { display: none; }
+    .faq-q::after {
+      content: '+';
+      font-size: 1.2rem;
+      color: var(--amber);
+      font-weight: 400;
+      transition: transform 0.2s;
+    }
+    .faq-item[open] .faq-q::after {
+      content: '−';
+    }
+    .faq-q:hover { color: var(--amber); }
 
-  .faq-a {
-    padding: 0 2rem 1.4rem;
-    font-size: 0.85rem;
-    color: var(--muted);
-    line-height: 1.7;
-  }
+    .faq-a {
+      padding: 0 2rem 1.4rem;
+      font-size: 0.85rem;
+      color: var(--muted);
+      line-height: 1.7;
+    }
 
 
 
-  .lang-switch {
-    display: flex;
-    align-items: center;
-    gap: 0;
-    border: 1px solid var(--border);
-    border-radius: 3px;
-    overflow: hidden;
-    margin-right: 0.8rem;
-  }
-  .lang-btn {
-    background: none;
-    border: none;
-    color: var(--muted);
-    font-family: 'DM Mono', monospace;
-    font-size: 0.72rem;
-    letter-spacing: 0.08em;
-    padding: 0.4rem 0.7rem;
-    cursor: pointer;
-    transition: background 0.15s, color 0.15s;
-  }
-  .lang-btn.active {
-    background: var(--amber);
-    color: #0a0a0c;
-  }
-  .lang-btn:not(.active):hover { color: var(--amber); }
+    .lang-switch {
+      display: flex;
+      align-items: center;
+      gap: 0;
+      border: 1px solid var(--border);
+      border-radius: 3px;
+      overflow: hidden;
+      margin-right: 0.8rem;
+    }
+    .lang-btn {
+      background: none;
+      border: none;
+      color: var(--muted);
+      font-family: 'DM Mono', monospace;
+      font-size: 0.72rem;
+      letter-spacing: 0.08em;
+      padding: 0.4rem 0.7rem;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s;
+    }
+    .lang-btn.active {
+      background: var(--amber);
+      color: #0a0a0c;
+    }
+    .lang-btn:not(.active):hover { color: var(--amber); }
 
-  /* ─── RESPONSIVE ─── */
-  @media (max-width: 768px) {
-    nav { padding: 1rem 1.5rem; }
-    .nav-links { display: none; }
-    .hero { padding: 5rem 1.5rem 2.5rem; min-height: auto; }
-    section { padding: 3rem 1.5rem; }
-    footer { padding: 2rem 1.5rem; }
-    .stats { flex-direction: column; }
-    .stat { border-right: none; border-bottom: 1px solid var(--border); }
-    .stat:last-child { border-bottom: none; }
-    .gear-bg, .gear-bg2 { display: none; }
-  }
-</style>
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 768px) {
+      nav { padding: 1rem 1.5rem; }
+      .nav-links { display: none; }
+      .hero { padding: 5rem 1.5rem 2.5rem; min-height: auto; }
+      section { padding: 3rem 1.5rem; }
+      footer { padding: 2rem 1.5rem; }
+      .stats { flex-direction: column; }
+      .stat { border-right: none; border-bottom: 1px solid var(--border); }
+      .stat:last-child { border-bottom: none; }
+      .gear-bg, .gear-bg2 { display: none; }
+    }
+  </style>
 </head>
 <body>
 
@@ -895,19 +895,13 @@
   <div class="screens-grid" style="max-width: 560px;">
     <div class="screen-wrap">
       <div class="screen-frame-phone">
-        <div class="screen-inner">
-          <span class="screen-label">TaskEdge</span>
-          <span class="screen-hint" data-i18n="screen_hint">[ phone screenshot ]</span>
-        </div>
+        <img src="screenshots/taskedge_1.jpg" alt="TaskEdge edge panel" style="width:100%;height:100%;object-fit:cover;">
       </div>
       <div class="screen-cap" data-i18n="screen_cap1">Edge panel open</div>
     </div>
     <div class="screen-wrap">
       <div class="screen-frame-phone">
-        <div class="screen-inner">
-          <span class="screen-label">TaskEdge</span>
-          <span class="screen-hint" data-i18n="screen_hint">[ phone screenshot ]</span>
-        </div>
+        <img src="screenshots/taskedge_2.jpg" alt="TaskEdge task view" style="width:100%;height:100%;object-fit:cover;">
       </div>
       <div class="screen-cap" data-i18n="screen_cap2">Task management view</div>
     </div>
@@ -965,167 +959,167 @@
 </footer>
 
 <script>
-const i18n = {
-  en: {
-    nav_galaxy: 'Galaxy',
-    nav_tizen: 'Tizen',
-    nav_future: 'Future',
-    hero_tag: 'Software for smart devices',
-    hero_h1: 'Make your<br>gadgets <em>smarter.</em>',
-    hero_sub: 'Apps for Samsung Android — and an open source archive of Tizen wearable tools. Built for people who want more from their devices.',
-    hero_cta1: 'Explore Products',
-    hero_cta2: '💬 Support on Telegram',
-    stat1: 'Archived Apps on GitHub',
-    stat2: 'Active Product',
-    stat3: 'Android Platform',
-    stat4: 'Tizen Code on GitHub',
-    galaxy_tag: '// Active Product',
-    galaxy_desc: 'Unofficial Todoist edge panel for Samsung Android. Manage tasks without leaving the app you\'re in.',
-    taskedge_desc: 'View and complete your Todoist tasks directly from the Samsung edge panel — without opening any app. Tasks grouped by day: overdue, today, tomorrow. Supports projects, labels, filters, favorites and offline mode.',
-    f1: '👁 View today / 7 days',
-    f2: '✅ Complete from edge',
-    f3: '📁 Projects & labels',
-    f4: '⭐ Favorites',
-    f5: '🔄 Scheduled sync',
-    f6: '📴 Offline filters',
-    f7: '➕ Add tasks from edge',
-    f8: '🗂 Custom keywords',
-    rustore_btn: 'Get on RuStore →',
-    gplay_note: '⚠ Temporarily unavailable on Google Play',
-    tizen_tag: '// Tizen Wearable — Code on GitHub',
-    tizen_h2: 'Tizen Archive.',
-    tizen_desc: '10 open source apps built for Samsung Tizen wearables. The code is here, freely available — but these are history now.',
-    archive_title: 'Not available in any store.',
-    archive_body: 'Samsung discontinued Tizen OS. These apps are no longer maintained or distributed — source code is preserved for reference and learning only.',
-    gearhub_sub: '(Android companion)',
-    gearhub_desc: 'An Android app that acts as the backend for some Tizen apps. Required by ENoteGear, TaskGear, and TodoGear — useless without them. Not a standalone product.',
-    gearhub_link: 'View on archive →',
-    dep_needs: 'Requires GearHub:',
-    dep_standalone: 'Standalone (no hub needed):',
-    app_appsgear: 'App Manager',
-    app_countgear: 'Counter',
-    app_enotegear: 'Notes · needs Hub',
-    app_filesgear: 'File Manager',
-    app_socialgear: 'Social',
-    app_squaregear: 'Widget',
-    app_systemgear: 'System Info',
-    app_taskgear: 'Tasks · needs Hub',
-    app_todogear: 'Todo · needs Hub',
-    app_typegear: 'Keyboard',
-    screens_tag: '// In Action',
-    screens_h2: 'TaskEdge<br>on your phone.',
-    screens_desc: 'Coming soon — screenshots of TaskEdge running on Samsung Android.',
-    screen_hint: '[ phone screenshot ]',
-    screen_cap1: 'Edge panel open',
-    screen_cap2: 'Task management view',
-    faq_h2: 'Common<br>questions.',
-    faq_desc: 'Quick answers. If something\'s missing — ask in Telegram.',
-    faq_q1: 'What devices are supported?',
-    faq_a1: 'TaskEdge runs on Samsung Android phones with One UI and edge panel support. Tizen apps were built for older Samsung Galaxy Watch models running Tizen OS — that platform is discontinued.',
-    faq_q2: 'Is the source code available?',
-    faq_a2: 'All 10 Tizen apps are fully open source — browse, fork, learn from them freely. TaskEdge is a commercial product and is not open source.',
-    faq_q3: 'How do I install TaskEdge?',
-    faq_a3: 'TaskEdge is available on RuStore. It\'s temporarily unavailable on Google Play — check the product page for current status. Tizen apps are no longer in any store and require sideloading via the Tizen SDK.',
-    faq_q4: 'Where do I get support?',
-    faq_a4: 'The fastest way is Telegram — <a href="https://t.me/gearsoftware" target="_blank" style="color:var(--amber)">t.me/gearsoftware</a>. Bug reports and feature requests are welcome there too.',
-    faq_q5: 'Are the apps free?',
-    faq_a5: 'All 10 Tizen open source apps are free. TaskEdge is a paid PRO product — check the product page for pricing. GearHub is a free Android companion app, but only useful alongside the Tizen apps it supports.',
-    future_tag: '// Future Plans',
-    future_h2: 'What\'s next<br>for GearSoftware?',
-    future_desc: 'TaskEdge keeps getting better. New features, improvements, and ideas in the pipeline — follow along on Telegram.',
-    future_btn: 'View Roadmap',
-    footer_copy: 'Built for smarter gadgets.',
-  },
-  ru: {
-    nav_galaxy: 'Galaxy',
-    nav_tizen: 'Tizen',
-    nav_future: 'Планы',
-    hero_tag: 'Приложения для умных устройств',
-    hero_h1: 'Сделай свои<br>гаджеты <em>умнее.</em>',
-    hero_sub: 'Приложения для Samsung Android — и архив открытого кода для Tizen wearables. Для тех, кто хочет большего от своих устройств.',
-    hero_cta1: 'Смотреть продукты',
-    hero_cta2: '💬 Поддержка в Telegram',
-    stat1: 'Архивных приложений на GitHub',
-    stat2: 'Активный продукт',
-    stat3: 'Платформа Android',
-    stat4: 'Код Tizen на GitHub',
-    galaxy_tag: '// Активный продукт',
-    galaxy_desc: 'Неофициальная edge-панель для Todoist на Samsung Android. Управляй задачами, не выходя из текущего приложения.',
-    taskedge_desc: 'Просматривай и выполняй задачи Todoist прямо с edge-панели Samsung — без открытия приложения. Задачи сгруппированы по дням: просроченные, сегодня, завтра. Поддержка проектов, меток, фильтров, избранного и офлайн-режима.',
-    f1: '👁 Вид на сегодня / 7 дней',
-    f2: '✅ Выполнение с edge-панели',
-    f3: '📁 Проекты и метки',
-    f4: '⭐ Избранное',
-    f5: '🔄 Автосинхронизация',
-    f6: '📴 Офлайн-фильтры',
-    f7: '➕ Добавление задач с панели',
-    f8: '🗂 Пользовательские ключевые слова',
-    rustore_btn: 'Скачать в RuStore →',
-    gplay_note: '⚠ Временно недоступно в Google Play',
-    tizen_tag: '// Tizen Wearable — код на GitHub',
-    tizen_h2: 'Архив Tizen.',
-    tizen_desc: '10 приложений с открытым кодом для Samsung Tizen wearables. Код здесь и доступен — но это уже история.',
-    archive_title: 'Недоступно ни в одном магазине.',
-    archive_body: 'Samsung прекратила поддержку Tizen OS. Приложения больше не обновляются и не распространяются — исходный код сохранён для изучения и справки.',
-    gearhub_sub: '(компаньон для Android)',
-    gearhub_desc: 'Android-приложение, выступающее бэкендом для части Tizen-приложений. Нужен ENoteGear, TaskGear и TodoGear — без них бесполезен. Самостоятельный продукт не является.',
-    gearhub_link: 'Открыть в архиве →',
-    dep_needs: 'Требует GearHub:',
-    dep_standalone: 'Работают без GearHub:',
-    app_appsgear: 'Менеджер приложений',
-    app_countgear: 'Счётчик',
-    app_enotegear: 'Заметки · нужен Hub',
-    app_filesgear: 'Файловый менеджер',
-    app_socialgear: 'Социальные сети',
-    app_squaregear: 'Виджет',
-    app_systemgear: 'Системная информация',
-    app_taskgear: 'Задачи · нужен Hub',
-    app_todogear: 'Список дел · нужен Hub',
-    app_typegear: 'Клавиатура',
-    screens_tag: '// В деле',
-    screens_h2: 'TaskEdge<br>на твоём телефоне.',
-    screens_desc: 'Скоро — скриншоты TaskEdge на Samsung Android.',
-    screen_hint: '[ скриншот телефона ]',
-    screen_cap1: 'Edge-панель открыта',
-    screen_cap2: 'Управление задачами',
-    faq_h2: 'Частые<br>вопросы.',
-    faq_desc: 'Короткие ответы. Если чего-то не хватает — спроси в Telegram.',
-    faq_q1: 'Какие устройства поддерживаются?',
-    faq_a1: 'TaskEdge работает на Android-телефонах Samsung с One UI и поддержкой edge-панели. Tizen-приложения создавались для старых Samsung Galaxy Watch на Tizen OS — эта платформа уже не поддерживается.',
-    faq_q2: 'Доступен ли исходный код?',
-    faq_a2: 'Все 10 Tizen-приложений полностью открыты — изучай, форкай, используй свободно. TaskEdge — коммерческий продукт, исходный код закрыт.',
-    faq_q3: 'Как установить TaskEdge?',
-    faq_a3: 'TaskEdge доступен в RuStore. В Google Play временно недоступен — следи за обновлениями на странице продукта. Tizen-приложений нет ни в одном магазине, установка только через Tizen SDK.',
-    faq_q4: 'Куда обращаться за поддержкой?',
-    faq_a4: 'Быстрее всего — Telegram: <a href="https://t.me/gearsoftware" target="_blank" style="color:var(--amber)">t.me/gearsoftware</a>. Там же принимаются баг-репорты и пожелания.',
-    faq_q5: 'Приложения бесплатные?',
-    faq_a5: 'Все 10 Tizen-приложений с открытым кодом — бесплатны. TaskEdge — платный PRO-продукт, цена на странице приложения. GearHub — бесплатный Android-компаньон, но полезен только вместе с Tizen-приложениями.',
-    future_tag: '// Планы',
-    future_h2: 'Что дальше<br>у GearSoftware?',
-    future_desc: 'TaskEdge продолжает развиваться. Новые функции, улучшения, идеи — следи за обновлениями в Telegram.',
-    future_btn: 'Смотреть планы',
-    footer_copy: 'Делаем гаджеты умнее.',
-  }
-};
-
-let currentLang = 'en';
-
-function setLang(lang) {
-  currentLang = lang;
-  document.querySelectorAll('[data-i18n]').forEach(el => {
-    const key = el.getAttribute('data-i18n');
-    if (i18n[lang][key] !== undefined) {
-      el.innerHTML = i18n[lang][key];
+  const i18n = {
+    en: {
+      nav_galaxy: 'Galaxy',
+      nav_tizen: 'Tizen',
+      nav_future: 'Future',
+      hero_tag: 'Software for smart devices',
+      hero_h1: 'Make your<br>gadgets <em>smarter.</em>',
+      hero_sub: 'Apps for Samsung Android — and an open source archive of Tizen wearable tools. Built for people who want more from their devices.',
+      hero_cta1: 'Explore Products',
+      hero_cta2: '💬 Support on Telegram',
+      stat1: 'Archived Apps on GitHub',
+      stat2: 'Active Product',
+      stat3: 'Android Platform',
+      stat4: 'Tizen Code on GitHub',
+      galaxy_tag: '// Active Product',
+      galaxy_desc: 'Unofficial Todoist edge panel for Samsung Android. Manage tasks without leaving the app you\'re in.',
+      taskedge_desc: 'View and complete your Todoist tasks directly from the Samsung edge panel — without opening any app. Tasks grouped by day: overdue, today, tomorrow. Supports projects, labels, filters, favorites and offline mode.',
+      f1: '👁 View today / 7 days',
+      f2: '✅ Complete from edge',
+      f3: '📁 Projects & labels',
+      f4: '⭐ Favorites',
+      f5: '🔄 Scheduled sync',
+      f6: '📴 Offline filters',
+      f7: '➕ Add tasks from edge',
+      f8: '🗂 Custom keywords',
+      rustore_btn: 'Get on RuStore →',
+      gplay_note: '⚠ Temporarily unavailable on Google Play',
+      tizen_tag: '// Tizen Wearable — Code on GitHub',
+      tizen_h2: 'Tizen Archive.',
+      tizen_desc: '10 open source apps built for Samsung Tizen wearables. The code is here, freely available — but these are history now.',
+      archive_title: 'Not available in any store.',
+      archive_body: 'Samsung discontinued Tizen OS. These apps are no longer maintained or distributed — source code is preserved for reference and learning only.',
+      gearhub_sub: '(Android companion)',
+      gearhub_desc: 'An Android app that acts as the backend for some Tizen apps. Required by ENoteGear, TaskGear, and TodoGear — useless without them. Not a standalone product.',
+      gearhub_link: 'View on archive →',
+      dep_needs: 'Requires GearHub:',
+      dep_standalone: 'Standalone (no hub needed):',
+      app_appsgear: 'App Manager',
+      app_countgear: 'Counter',
+      app_enotegear: 'Notes · needs Hub',
+      app_filesgear: 'File Manager',
+      app_socialgear: 'Social',
+      app_squaregear: 'Widget',
+      app_systemgear: 'System Info',
+      app_taskgear: 'Tasks · needs Hub',
+      app_todogear: 'Todo · needs Hub',
+      app_typegear: 'Keyboard',
+      screens_tag: '// In Action',
+      screens_h2: 'TaskEdge<br>on your phone.',
+      screens_desc: 'Coming soon — screenshots of TaskEdge running on Samsung Android.',
+      screen_hint: '[ phone screenshot ]',
+      screen_cap1: 'Edge panel open',
+      screen_cap2: 'Task management view',
+      faq_h2: 'Common<br>questions.',
+      faq_desc: 'Quick answers. If something\'s missing — ask in Telegram.',
+      faq_q1: 'What devices are supported?',
+      faq_a1: 'TaskEdge runs on Samsung Android phones with One UI and edge panel support. Tizen apps were built for older Samsung Galaxy Watch models running Tizen OS — that platform is discontinued.',
+      faq_q2: 'Is the source code available?',
+      faq_a2: 'All 10 Tizen apps are fully open source — browse, fork, learn from them freely. TaskEdge is a commercial product and is not open source.',
+      faq_q3: 'How do I install TaskEdge?',
+      faq_a3: 'TaskEdge is available on RuStore. It\'s temporarily unavailable on Google Play — check the product page for current status. Tizen apps are no longer in any store and require sideloading via the Tizen SDK.',
+      faq_q4: 'Where do I get support?',
+      faq_a4: 'The fastest way is Telegram — <a href="https://t.me/gearsoftware" target="_blank" style="color:var(--amber)">t.me/gearsoftware</a>. Bug reports and feature requests are welcome there too.',
+      faq_q5: 'Are the apps free?',
+      faq_a5: 'All 10 Tizen open source apps are free. TaskEdge is a paid PRO product — check the product page for pricing. GearHub is a free Android companion app, but only useful alongside the Tizen apps it supports.',
+      future_tag: '// Future Plans',
+      future_h2: 'What\'s next<br>for GearSoftware?',
+      future_desc: 'TaskEdge keeps getting better. New features, improvements, and ideas in the pipeline — follow along on Telegram.',
+      future_btn: 'View Roadmap',
+      footer_copy: 'Built for smarter gadgets.',
+    },
+    ru: {
+      nav_galaxy: 'Galaxy',
+      nav_tizen: 'Tizen',
+      nav_future: 'Планы',
+      hero_tag: 'Приложения для умных устройств',
+      hero_h1: 'Сделай свои<br>гаджеты <em>умнее.</em>',
+      hero_sub: 'Приложения для Samsung Android — и архив открытого кода для Tizen wearables. Для тех, кто хочет большего от своих устройств.',
+      hero_cta1: 'Смотреть продукты',
+      hero_cta2: '💬 Поддержка в Telegram',
+      stat1: 'Архивных приложений на GitHub',
+      stat2: 'Активный продукт',
+      stat3: 'Платформа Android',
+      stat4: 'Код Tizen на GitHub',
+      galaxy_tag: '// Активный продукт',
+      galaxy_desc: 'Неофициальная edge-панель для Todoist на Samsung Android. Управляй задачами, не выходя из текущего приложения.',
+      taskedge_desc: 'Просматривай и выполняй задачи Todoist прямо с edge-панели Samsung — без открытия приложения. Задачи сгруппированы по дням: просроченные, сегодня, завтра. Поддержка проектов, меток, фильтров, избранного и офлайн-режима.',
+      f1: '👁 Вид на сегодня / 7 дней',
+      f2: '✅ Выполнение с edge-панели',
+      f3: '📁 Проекты и метки',
+      f4: '⭐ Избранное',
+      f5: '🔄 Автосинхронизация',
+      f6: '📴 Офлайн-фильтры',
+      f7: '➕ Добавление задач с панели',
+      f8: '🗂 Пользовательские ключевые слова',
+      rustore_btn: 'Скачать в RuStore →',
+      gplay_note: '⚠ Временно недоступно в Google Play',
+      tizen_tag: '// Tizen Wearable — код на GitHub',
+      tizen_h2: 'Архив Tizen.',
+      tizen_desc: '10 приложений с открытым кодом для Samsung Tizen wearables. Код здесь и доступен — но это уже история.',
+      archive_title: 'Недоступно ни в одном магазине.',
+      archive_body: 'Samsung прекратила поддержку Tizen OS. Приложения больше не обновляются и не распространяются — исходный код сохранён для изучения и справки.',
+      gearhub_sub: '(компаньон для Android)',
+      gearhub_desc: 'Android-приложение, выступающее бэкендом для части Tizen-приложений. Нужен ENoteGear, TaskGear и TodoGear — без них бесполезен. Самостоятельный продукт не является.',
+      gearhub_link: 'Открыть в архиве →',
+      dep_needs: 'Требует GearHub:',
+      dep_standalone: 'Работают без GearHub:',
+      app_appsgear: 'Менеджер приложений',
+      app_countgear: 'Счётчик',
+      app_enotegear: 'Заметки · нужен Hub',
+      app_filesgear: 'Файловый менеджер',
+      app_socialgear: 'Социальные сети',
+      app_squaregear: 'Виджет',
+      app_systemgear: 'Системная информация',
+      app_taskgear: 'Задачи · нужен Hub',
+      app_todogear: 'Список дел · нужен Hub',
+      app_typegear: 'Клавиатура',
+      screens_tag: '// В деле',
+      screens_h2: 'TaskEdge<br>на твоём телефоне.',
+      screens_desc: 'Скоро — скриншоты TaskEdge на Samsung Android.',
+      screen_hint: '[ скриншот телефона ]',
+      screen_cap1: 'Edge-панель открыта',
+      screen_cap2: 'Управление задачами',
+      faq_h2: 'Частые<br>вопросы.',
+      faq_desc: 'Короткие ответы. Если чего-то не хватает — спроси в Telegram.',
+      faq_q1: 'Какие устройства поддерживаются?',
+      faq_a1: 'TaskEdge работает на Android-телефонах Samsung с One UI и поддержкой edge-панели. Tizen-приложения создавались для старых Samsung Galaxy Watch на Tizen OS — эта платформа уже не поддерживается.',
+      faq_q2: 'Доступен ли исходный код?',
+      faq_a2: 'Все 10 Tizen-приложений полностью открыты — изучай, форкай, используй свободно. TaskEdge — коммерческий продукт, исходный код закрыт.',
+      faq_q3: 'Как установить TaskEdge?',
+      faq_a3: 'TaskEdge доступен в RuStore. В Google Play временно недоступен — следи за обновлениями на странице продукта. Tizen-приложений нет ни в одном магазине, установка только через Tizen SDK.',
+      faq_q4: 'Куда обращаться за поддержкой?',
+      faq_a4: 'Быстрее всего — Telegram: <a href="https://t.me/gearsoftware" target="_blank" style="color:var(--amber)">t.me/gearsoftware</a>. Там же принимаются баг-репорты и пожелания.',
+      faq_q5: 'Приложения бесплатные?',
+      faq_a5: 'Все 10 Tizen-приложений с открытым кодом — бесплатны. TaskEdge — платный PRO-продукт, цена на странице приложения. GearHub — бесплатный Android-компаньон, но полезен только вместе с Tizen-приложениями.',
+      future_tag: '// Планы',
+      future_h2: 'Что дальше<br>у GearSoftware?',
+      future_desc: 'TaskEdge продолжает развиваться. Новые функции, улучшения, идеи — следи за обновлениями в Telegram.',
+      future_btn: 'Смотреть планы',
+      footer_copy: 'Делаем гаджеты умнее.',
     }
-  });
-  document.querySelectorAll('.lang-btn').forEach(btn => {
-    btn.classList.toggle('active', btn.textContent.toLowerCase() === lang);
-  });
-  document.documentElement.lang = lang;
-}
+  };
 
-const browserLang = navigator.language.startsWith('ru') ? 'ru' : 'en';
-setLang(browserLang);
+  let currentLang = 'en';
+
+  function setLang(lang) {
+    currentLang = lang;
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+      const key = el.getAttribute('data-i18n');
+      if (i18n[lang][key] !== undefined) {
+        el.innerHTML = i18n[lang][key];
+      }
+    });
+    document.querySelectorAll('.lang-btn').forEach(btn => {
+      btn.classList.toggle('active', btn.textContent.toLowerCase() === lang);
+    });
+    document.documentElement.lang = lang;
+  }
+
+  const browserLang = navigator.language.startsWith('ru') ? 'ru' : 'en';
+  setLang(browserLang);
 </script>
 
 </body>
